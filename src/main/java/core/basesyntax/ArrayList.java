@@ -60,21 +60,21 @@ public class ArrayList<T> implements List<T> {
     @Override
     public T remove(int index) {
         checkIndex(index);
-        T removed = elements[index];
-        // Przesuwamy w lewo
+        T removedValue = elements[index]; // zmienna teraz użyta szybciej
         for (int i = index; i < size - 1; i++) {
             elements[i] = elements[i + 1];
         }
         elements[size - 1] = null;
         size--;
-        return removed;
+        return removedValue;
     }
+
 
     @Override
     public T remove(T element) {
         for (int i = 0; i < size; i++) {
-            if ((elements[i] == null && element == null) ||
-                    (elements[i] != null && elements[i].equals(element))) {
+            if ((elements[i] == null && element == null)
+                    || (elements[i] != null && elements[i].equals(element))) {
                 return remove(i);
             }
         }
@@ -93,7 +93,7 @@ public class ArrayList<T> implements List<T> {
 
     @SuppressWarnings("unchecked")
     private void increaseCapacity() {
-        int newCapacity = (int)(elements.length * 1.5) + 1; // +1 na wypadek, gdyby wynik był zaokrąglony w dół
+        int newCapacity = (int)(elements.length * 1.5) + 1; // +1 gdyby wynik był zaokrąglony w dół
         T[] newArray = (T[]) new Object[newCapacity];
         // Ręczne kopiowanie elementów
         for (int i = 0; i < size; i++) {
